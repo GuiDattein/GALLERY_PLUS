@@ -1,28 +1,23 @@
-// import { useParams } from "react-router";
+import { useParams } from "react-router";
 import Text from "../components/text";
 import Container from "../components/container";
-import type { Photo } from "../contexts/photos/models/photo";
 import Skeleton from "../components/skeleton";
 import PhotosNavigator from "../contexts/photos/components/photos-navigator";
 import ImageFilePreview from "../components/image-file-preview";
 import Button from "../components/button";
 import AlbumsListSelectable from "../contexts/albums/components/albums-list-selectable";
 import useAlbums from "../contexts/albums/hooks/use-albums";
+import usePhoto from "../contexts/photos/hooks/use-photo";
+import type { Photo } from "../contexts/photos/models/photo";
 
 export default function PagePhotoDetails() {
-  // const { id } = useParams();
+  const { id } = useParams();
   const { albums, isLoadingAlbums } = useAlbums();
-  const isLoadingPhoto = false;
-  const photo = {
-    id: "123",
-    title: "teste",
-    imageId: "portrait-tower.png",
-    albums: [
-      { id: "321", title: "Ablum 1" },
-      { id: "432", title: "Ablum 2" },
-      { id: "643", title: "Ablum 3" },
-    ],
-  } as Photo;
+  const { photo, isLoadingPhoto } = usePhoto(id);
+
+  if (!isLoadingPhoto && !photo) {
+    return <div>Foto não encontrada</div>;
+  }
 
   return (
     <Container>
@@ -42,7 +37,7 @@ export default function PagePhotoDetails() {
         <div className="space-y-3">
           {!isLoadingPhoto ? (
             <ImageFilePreview
-              src={`/images/${photo?.imageId}`}
+              src={`${import.meta.env.VITE_IMAGES_URL}/${photo?.imageId}`}
               title={photo?.title}
               imageClassName="h-[21rem]"
             />
@@ -63,7 +58,7 @@ export default function PagePhotoDetails() {
           </Text>
 
           <AlbumsListSelectable
-            photo={photo}
+            photo={photo as Photo}
             albums={albums}
             loading={isLoadingAlbums}
           />
