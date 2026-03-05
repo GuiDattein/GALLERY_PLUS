@@ -71,3 +71,4 @@ export default function PagePhotoDetails() {
     </Container>
   );
 }
+//00:53
