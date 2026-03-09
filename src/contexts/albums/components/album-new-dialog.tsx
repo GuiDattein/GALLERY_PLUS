@@ -40,7 +40,9 @@ export default function AlbumNewDialog({ trigger }: AlbumNewDialogProps) {
     console.log(selected + photoId);
   }
 
-  function handleSubmit(payload: AlbumNewFormSchema) {}
+  function handleSubmit(payload: AlbumNewFormSchema) {
+    console.log(payload);
+  }
 
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen}>
