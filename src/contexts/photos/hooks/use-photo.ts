@@ -53,4 +53,3 @@ export default function usePhoto(id?: string) {
     createPhoto,
   };
 }
-//01:31:41
