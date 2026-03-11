@@ -5,6 +5,8 @@
 Run the install command
 
 ```
+npm install
+ou
 pnpm install
 ```
 
